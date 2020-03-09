@@ -83,22 +83,39 @@ public class GeradorFluxograma
 
         String result = "<html>\n";
         result += "<h3 style='margin-bottom: 0px'>" + aluno.getNome() + "</h3>\n";
-        result += "<h5 style='margin-top: 6px'>Matrícula: <span style='color: gray'>" + aluno.getMatricula() + "</span> | <a href='..\\pdf\\" + aluno.getMatricula() + " - " + aluno.getNome() + ".pdf'>Histórico</a> | <a href='#disciplinas'>Tabela</a></h5>\n";
+        result += "<h5 style='margin-top: 6px'>Matrícula: <span style='color: gray'>" + aluno.getMatricula() + "</span> | <a href='../pdf/" + aluno.getMatricula() + " - " + aluno.getNome() + ".pdf'>Histórico</a> | <a href='#disciplinas'>Tabela</a></h5>\n";
+        result += apresentaJubilamento(aluno);
         result += xmlString + "\n";
-        result = apresentaTabelaDisciplinas(aluno, result);
+        result += apresentaTabelaDisciplinas(aluno);
         result += "</html>";
 
-        PrintWriter fileWriter = new PrintWriter(reportDirectory + "\\html\\" + aluno.getMatricula() + " - " + aluno.getNome() + ".html", "UTF-8");
+        PrintWriter fileWriter = new PrintWriter(reportDirectory + "/html/" + aluno.getMatricula() + " - " + aluno.getNome() + ".html", "UTF-8");
 		fileWriter.print(result);
 		fileWriter.close();
 	}
 
 	/**
+	 * Apresenta a situação de jubilamento do aluno
+	 */
+	private String apresentaJubilamento(Aluno aluno)
+	{
+		String result = "";
+		
+		if (aluno.verificaSePossuiMaisSemestresQuePrazo())
+			result += "<p><b>Situação de Jubilamento:</b> O aluno está a mais semestres do que o prazo permitido.</p>\n";
+		
+		if (aluno.verificaSituacaoCoeficienteRendimentoReprovacoes())
+			result += "<p><b>Situação de Jubilamento:</b> O aluno está com CR abaixo do mínimo e tem quatro reprovações na mesma disciplina.</p>\n";
+		
+		return result;
+	}
+
+	/**
 	 * Apresenta uma tabela com as disciplinas cursadas
 	 */
-	private String apresentaTabelaDisciplinas(Aluno aluno, String result)
+	private String apresentaTabelaDisciplinas(Aluno aluno)
 	{
-		result += "<table id='disciplinas' style='width:80%;border:1px solid black' border='1'>\n";
+		String result = "<table id='disciplinas' style='width:80%;border:1px solid black' border='1'>\n";
         result += "<tr><th>Código</th><th>Nome</th><th>Tipo</th><th>Período</th><th>Status</th></tr>\n";
         
         for (DisciplinaCursada matricula : aluno.getDisciplinasMatriculadas())

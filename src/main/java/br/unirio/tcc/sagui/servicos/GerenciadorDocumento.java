@@ -41,8 +41,8 @@ public class GerenciadorDocumento
 	 */
 	public void percorreDiretorioDocumentos(Curso curso, String baseDirectory) throws Exception
 	{
-		File pdfDirectory = new File(baseDirectory + "\\source-pdf");
-		File[] pdfDirectoryListing = pdfDirectory .listFiles();
+		File pdfDirectory = new File(baseDirectory + "/source-pdf");
+		File[] pdfDirectoryListing = pdfDirectory.listFiles();
 
 		if (pdfDirectoryListing != null)
 		{
@@ -60,7 +60,7 @@ public class GerenciadorDocumento
 	{
 		if (pdfFilename.endsWith(".pdf"))
 		{
-			String textFilename = pdfFilename.replace("\\source-pdf\\", "\\source-text\\").replace(".pdf", ".txt");
+			String textFilename = pdfFilename.replace("/source-pdf/", "/source-text/").replace(".pdf", ".txt");
 			
 			if (!new File(textFilename).exists())
 			{

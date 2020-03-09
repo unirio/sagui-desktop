@@ -14,7 +14,7 @@ public class GeradorIndice
 {
 	public void executa(Curso curso, String reportDirectory) throws Exception
 	{
-		for (int i = 2012; i <= 2019; i++)
+		for (int i = 2010; i <= 2019; i++)
 		{
 			geraIndice(i, 1, curso, reportDirectory);
 			geraIndice(i, 2, curso, reportDirectory);
@@ -36,7 +36,7 @@ public class GeradorIndice
 		{
 			if (aluno.getAnoIngresso() == ano && aluno.getSemestreIngresso() == semestre)
 			{
-				String link = "html\\" + aluno.getMatricula() + " - " + aluno.getNome() + ".html";
+				String link = "html/" + aluno.getMatricula() + " - " + aluno.getNome() + ".html";
 				result += "<li><a href='" + link + "'>" + aluno.getNome() + "</a>" + " (" + aluno.getMatricula() + ")</li>\n";
 				count++;
 			}
@@ -47,7 +47,7 @@ public class GeradorIndice
 
 		if (count > 0)
 		{
-			PrintWriter fileWriter = new PrintWriter(reportDirectory + "\\indice-" + ano + "-" + semestre + ".html", "UTF-8");
+			PrintWriter fileWriter = new PrintWriter(reportDirectory + "/indice-" + ano + "-" + semestre + ".html", "UTF-8");
 			fileWriter.print(result);
 			fileWriter.close();
 		}

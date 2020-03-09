@@ -28,7 +28,7 @@ public class SeparadorDocumentos
 
 	private void separaDocumentoAluno(Aluno aluno, String reportDirectory) throws Exception
 	{
-		String outFile = reportDirectory + "\\pdf\\" + aluno.getMatricula() + " - " + aluno.getNome() + ".pdf";
+		String outFile = reportDirectory + "/pdf/" + aluno.getMatricula() + " - " + aluno.getNome() + ".pdf";
 		
 		PdfReader reader = new PdfReader(aluno.getArquivoDocumento());
         Document document = new Document(reader.getPageSizeWithRotation(1));
