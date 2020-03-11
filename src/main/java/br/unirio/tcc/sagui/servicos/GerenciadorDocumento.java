@@ -9,6 +9,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfReaderContentParser;
 import com.itextpdf.text.pdf.parser.SimpleTextExtractionStrategy;
@@ -60,11 +62,14 @@ public class GerenciadorDocumento
 	{
 		if (pdfFilename.endsWith(".pdf"))
 		{
-			String textFilename = pdfFilename.replace("/source-pdf/", "/source-text/").replace(".pdf", ".txt");
+			String textFilename = pdfFilename.replace(File.separator + "source-pdf" + File.separator, File.separator + "source-text" + File.separator).replace(".pdf", ".txt");
 			
 			if (!new File(textFilename).exists())
 			{
 				String contents = capturaTextoDocumento(pdfFilename);
+				contents = contents.replace("TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA \nACADÊMICA\n", "TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA ACADÊMICA ");
+				contents = contents.replace("FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO \nE RACIOCÍNIO\n", "FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO E RACIOCÍNIO "); 
+
 				PrintWriter writer = new PrintWriter(textFilename, "UTF-8");
 				writer.print(contents);
 				writer.close();
@@ -272,7 +277,7 @@ public class GerenciadorDocumento
 		{
 			String[] palavras = linha.split("\\s+");
 			String codigo = palavras[0];
-			String nome = palavras[1];
+			String nome = pegaNomeDisciplina(palavras);
 			TipoDisciplina tipo = TipoDisciplina.ELETIVA;
 
 			Disciplina disciplina = curso.pegaDisciplinaCodigo(codigo);
@@ -283,12 +288,42 @@ public class GerenciadorDocumento
 				tipo = disciplina.getTipoDisciplina();
 			}
 			
+			int cargaHoraria = 0;
+			int creditos = 0;
+			
+			if (!linha.endsWith("APV - Aprovado sem nota 0"))
+			{
+				cargaHoraria = Integer.valueOf(palavras[palavras.length - 2]);
+				creditos = Integer.valueOf(palavras[palavras.length - 1]);
+			}
+			
 			DisciplinaCursada disciplinaMatriculada = new DisciplinaCursada(codigo, nome, tipo, anoCorrente, periodoCorrente, status);
-			disciplinaMatriculada.setCargaHoraria(Integer.valueOf(palavras[palavras.length - 2]));
-			disciplinaMatriculada.setCreditos(Integer.valueOf(palavras[palavras.length - 1]));
-
+			disciplinaMatriculada.setCargaHoraria(cargaHoraria);
+			disciplinaMatriculada.setCreditos(creditos);
 			aluno.incluirDisciplinaMatriculada(disciplinaMatriculada);
 		}
+	}
+
+	/**
+	 * Retorna o nome da disciplina a partir da sua descrição
+	 */
+	private String pegaNomeDisciplina(String[] palavras)
+	{
+		String nome = palavras[1];
+		
+		for (int i = 2; i < palavras.length && verificaPalavraValidaNomeDisciplina(palavras[i]); i++)
+			nome += " " + palavras[i];			
+		
+		return nome;
+	}
+
+	private boolean verificaPalavraValidaNomeDisciplina(String palavra)
+	{
+		if (palavra.compareTo("APV-") == 0 || palavra.compareTo("REF-") == 0 || palavra.compareTo("REP-") == 0 || palavra.compareTo("DIS-") == 0)
+			return false;
+
+		char c = StringUtils.stripAccents(palavra).charAt(0);
+		return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');		
 	}
 
 	/**

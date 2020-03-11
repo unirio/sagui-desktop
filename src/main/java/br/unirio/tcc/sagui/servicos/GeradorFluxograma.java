@@ -89,7 +89,10 @@ public class GeradorFluxograma
         result += apresentaTabelaDisciplinas(aluno);
         result += "</html>";
 
-        PrintWriter fileWriter = new PrintWriter(reportDirectory + "/html/" + aluno.getMatricula() + " - " + aluno.getNome() + ".html", "UTF-8");
+		String outFile = reportDirectory + File.separator + aluno.getAnoIngresso() + "-" + aluno.getSemestreIngresso() + File.separator + "html" + File.separator + aluno.getMatricula() + " - " + aluno.getNome() + ".html";
+		criaDiretorios(outFile);
+		
+		PrintWriter fileWriter = new PrintWriter(outFile, "UTF-8");
 		fileWriter.print(result);
 		fileWriter.close();
 	}
@@ -231,5 +234,17 @@ public class GeradorFluxograma
 			value = value.replaceAll(WHITE, color);
 			styleNode.setNodeValue(value);
 		}
+	}
+	
+	/**
+	 * Cria os diretórios necessários para salvar um arquivo
+	 */
+	private void criaDiretorios(String filename)
+	{
+		File targetFile = new File(filename);
+		File parent = targetFile.getParentFile();
+		
+		if (!parent.exists())
+			parent.mkdirs();
 	}
 }

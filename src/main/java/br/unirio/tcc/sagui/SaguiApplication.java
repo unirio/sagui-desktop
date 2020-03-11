@@ -1,5 +1,7 @@
 package br.unirio.tcc.sagui;
 
+import java.io.File;
+
 import br.unirio.tcc.sagui.dominio.Curso;
 import br.unirio.tcc.sagui.dominio.TipoDisciplina;
 import br.unirio.tcc.sagui.servicos.GeradorFluxograma;
@@ -9,8 +11,8 @@ import br.unirio.tcc.sagui.servicos.SeparadorDocumentos;
 
 public class SaguiApplication
 {
-//	private static String BASE_DIRECTORY = "C:/Users/Marcio/Desktop/base";
-	private static String BASE_DIRECTORY = "/Users/marciobarros/Desktop/base-sagui-desktop";
+	private static String BASE_DIRECTORY = "\\Users\\Marcio\\Desktop\\base";
+//	private static String BASE_DIRECTORY = "/Users/marciobarros/Desktop/base-sagui-desktop";
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -19,12 +21,12 @@ public class SaguiApplication
 		new GerenciadorDocumento().percorreDiretorioDocumentos(curso, BASE_DIRECTORY);
 		
 		System.out.println();
-		new SeparadorDocumentos().executa(curso, BASE_DIRECTORY + "/reports");
+		new SeparadorDocumentos().executa(curso, BASE_DIRECTORY + File.separator + "reports");
 		
 		System.out.println();
-		new GeradorFluxograma().geraFluxograma(curso, BASE_DIRECTORY + "/grade_curricular.svg", BASE_DIRECTORY + "/reports");
+		new GeradorFluxograma().geraFluxograma(curso, BASE_DIRECTORY + File.separator + "grade_curricular.svg", BASE_DIRECTORY + File.separator + "reports");
 		
-		new GeradorIndice().executa(curso, BASE_DIRECTORY + "/reports");
+		new GeradorIndice().executa(curso, BASE_DIRECTORY + File.separator + "reports");
 	}
 
 	private static Curso criaCursoBachareladoSistemasInformacao()
@@ -38,7 +40,7 @@ public class SaguiApplication
 		curso.adicionaDisciplina("TME0015", "ÁLGEBRA LINEAR", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0118", "ANÁLISE DE ALGORITMO", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0115", "ANÁLISE DE SISTEMAS", TipoDisciplina.OBRIGATORIA, 1);
-		curso.adicionaDisciplina("TIN0013", "ANÁLISE EMPRESARIAL E ADMIN", TipoDisciplina.OBRIGATORIA, 1);
+		curso.adicionaDisciplina("TIN0013", "ANÁLISE EMPRESARIAL E ADMINISTRAÇÃO", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0120", "BANCO DE DADOS I", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0169", "BANCO DE DADOS II", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TME0112", "CÁLCULO DIFERENCIAL E INTEGRAL I", TipoDisciplina.OBRIGATORIA, 1);
@@ -50,9 +52,10 @@ public class SaguiApplication
 		curso.adicionaDisciplina("TIN0168", "ESTRUTURAS DE DADOS II", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0109", "ESTRUTURAS DISCRETAS", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0112", "FUNDAMENTOS DE SISTEMAS DE INFORMAÇÃO", TipoDisciplina.OBRIGATORIA, 1);
-		curso.adicionaDisciplina("TIN0132", "GERÊNCIA DE PROJ. DE INFORMAT", TipoDisciplina.OBRIGATORIA, 1);
+		curso.adicionaDisciplina("TIN0132", "GERÊNCIA DE PROJ. DE INFORMÁTICA", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0010", "INTERAÇÃO HUMANO-COMPUTADOR", TipoDisciplina.OBRIGATORIA, 1);
-		curso.adicionaDisciplina("TIN0105", "INTRODUÇÃO À LÓGICA COMPUTAC", TipoDisciplina.OBRIGATORIA, 1);
+		curso.adicionaDisciplina("TIN0110", "INTERAÇÃO HUMANO-COMPUTADOR", TipoDisciplina.OBRIGATORIA, 1);		// Segundo código da mesma disciplina
+		curso.adicionaDisciplina("TIN0105", "INTRODUÇÃO À LÓGICA COMPUTACIONAL", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0119", "LINGUAG. FORMAIS E AUTÔMATOS", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TME0101", "MATEMÁTICA BÁSICA", TipoDisciplina.OBRIGATORIA, 1);
 		curso.adicionaDisciplina("TIN0108", "ORGANIZAÇÃO DE COMPUTADORES", TipoDisciplina.OBRIGATORIA, 1);

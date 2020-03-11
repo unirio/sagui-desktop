@@ -1,5 +1,6 @@
 package br.unirio.tcc.sagui.servicos;
 
+import java.io.File;
 import java.io.PrintWriter;
 
 import br.unirio.tcc.sagui.dominio.Aluno;
@@ -47,7 +48,7 @@ public class GeradorIndice
 
 		if (count > 0)
 		{
-			PrintWriter fileWriter = new PrintWriter(reportDirectory + "/indice-" + ano + "-" + semestre + ".html", "UTF-8");
+			PrintWriter fileWriter = new PrintWriter(reportDirectory + File.separator + ano + "-" + semestre + File.separator + "index.html", "UTF-8");
 			fileWriter.print(result);
 			fileWriter.close();
 		}
