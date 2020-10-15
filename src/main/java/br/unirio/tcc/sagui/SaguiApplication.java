@@ -11,8 +11,7 @@ import br.unirio.tcc.sagui.servicos.SeparadorDocumentos;
 
 public class SaguiApplication
 {
-	private static String BASE_DIRECTORY = "\\Users\\Marcio\\Desktop\\base";
-//	private static String BASE_DIRECTORY = "/Users/marciobarros/Desktop/base-sagui-desktop";
+	private static String BASE_DIRECTORY = "\\Users\\User\\Desktop\\historico";
 	
 	public static void main(String[] args) throws Exception
 	{
@@ -24,7 +23,7 @@ public class SaguiApplication
 		new SeparadorDocumentos().executa(curso, BASE_DIRECTORY + File.separator + "reports");
 		
 		System.out.println();
-		new GeradorFluxograma().geraFluxograma(curso, BASE_DIRECTORY + File.separator + "grade_curricular.svg", BASE_DIRECTORY + File.separator + "reports");
+		new GeradorFluxograma().geraFluxograma(curso, "src/main/resources/grade_curricular.svg", BASE_DIRECTORY + File.separator + "reports");
 		
 		new GeradorIndice().executa(curso, BASE_DIRECTORY + File.separator + "reports");
 	}

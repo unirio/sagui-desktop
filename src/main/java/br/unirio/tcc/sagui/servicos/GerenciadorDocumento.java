@@ -3,6 +3,7 @@ package br.unirio.tcc.sagui.servicos;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -93,8 +94,9 @@ public class GerenciadorDocumento
 		for (int page = 1; page <= reader.getNumberOfPages(); page++)
 		{
 			TextExtractionStrategy strategy = parser.processContent(page, new SimpleTextExtractionStrategy());
+			String currentText = strategy.getResultantText();
 			contents += "### START PAGE " + page + "\n";
-			contents += strategy.getResultantText() + "\n";
+			contents += currentText + "\n";
 		}
 
 		reader.close();
