@@ -11,21 +11,28 @@ import br.unirio.tcc.sagui.servicos.SeparadorDocumentos;
 
 public class SaguiApplication
 {
-	private static String BASE_DIRECTORY = "\\Users\\User\\Desktop\\historico";
-	
 	public static void main(String[] args) throws Exception
 	{
+		System.out.println("SAGUI Desktop: analise de historicos do BSI/UNIRIO");
+
+		if (args.length != 1)
+		{
+			System.out.println("Sintaxe incorreta: java sagui.jar <diretório-base>");
+			return;
+		}
+
+		String baseDirectory = args[0];
 		Curso curso = criaCursoBachareladoSistemasInformacao();
 
-		new GerenciadorDocumento().percorreDiretorioDocumentos(curso, BASE_DIRECTORY);
+		new GerenciadorDocumento().percorreDiretorioDocumentos(curso, baseDirectory);
 		
 		System.out.println();
-		new SeparadorDocumentos().executa(curso, BASE_DIRECTORY + File.separator + "reports");
+		new SeparadorDocumentos().executa(curso, baseDirectory + File.separator + "reports");
 		
 		System.out.println();
-		new GeradorFluxograma().geraFluxograma(curso, "src/main/resources/grade_curricular.svg", BASE_DIRECTORY + File.separator + "reports");
+		new GeradorFluxograma().geraFluxograma(curso, "src/main/resources/grade_curricular.svg", baseDirectory + File.separator + "reports");
 		
-		new GeradorIndice().executa(curso, BASE_DIRECTORY + File.separator + "reports");
+		new GeradorIndice().executa(curso, baseDirectory + File.separator + "reports");
 	}
 
 	private static Curso criaCursoBachareladoSistemasInformacao()

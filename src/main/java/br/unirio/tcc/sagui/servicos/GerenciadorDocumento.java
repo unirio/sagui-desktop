@@ -3,7 +3,9 @@ package br.unirio.tcc.sagui.servicos;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -44,7 +46,7 @@ public class GerenciadorDocumento
 	 */
 	public void percorreDiretorioDocumentos(Curso curso, String baseDirectory) throws Exception
 	{
-		File pdfDirectory = new File(baseDirectory + "/source-pdf");
+		File pdfDirectory = new File(baseDirectory + File.separator + "source-pdf");
 		File[] pdfDirectoryListing = pdfDirectory.listFiles();
 
 		if (pdfDirectoryListing != null)
@@ -67,18 +69,31 @@ public class GerenciadorDocumento
 			
 			if (!new File(textFilename).exists())
 			{
+				int lastDirectoryPosition = textFilename.lastIndexOf(File.separator);
+				String directory = textFilename.substring(0, lastDirectoryPosition);
+				
+				if (!new File(directory).exists())
+				{
+					Path directoryPath = Paths.get(directory);
+					Files.createDirectory(directoryPath);
+				}
+				
 				String contents = capturaTextoDocumento(pdfFilename);
 				contents = contents.replace("TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA \nACADÊMICA\n", "TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA ACADÊMICA ");
+				contents = contents.replace("TEORIAS E PR`TICAS DISCURSIVAS NA ESFERA\nACADÊMICA\n", "TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA ACADÊMICA ");
 				contents = contents.replace("FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO \nE RACIOCÍNIO\n", "FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO E RACIOCÍNIO "); 
+				contents = contents.replace("FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO\nE RACIOCÍNIO\n", "FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO E RACIOCÍNIO ");
+				contents = contents.replace("ATC2020 Estudo Remoto - Calendario Emergencial 2020 100,00 APV - Aprovado sem nota 15\n", "");
 
 				PrintWriter writer = new PrintWriter(textFilename, "UTF-8");
 				writer.print(contents);
 				writer.close();
 			}
 			
-			System.out.println("Processando " + pdfFilename + " ...");
+			System.out.print("Processando " + pdfFilename + " ... ");
 			String contents = carregaDocumentoTexto(textFilename);
 			processaConteudoDocumento(contents, pdfFilename, curso);
+			System.out.println(curso.contaAlunos() + " alunos");
 		}
 	}
 
@@ -109,7 +124,7 @@ public class GerenciadorDocumento
 	private String carregaDocumentoTexto(String filename) throws IOException
 	{
 		File file = new File(filename);
-		Scanner reader = new Scanner(file);
+		Scanner reader = new Scanner(file, "UTF-8");
 		StringBuilder sb = new StringBuilder();
 		
 		while (reader.hasNextLine())
@@ -127,7 +142,7 @@ public class GerenciadorDocumento
 	 */
 	private void processaConteudoDocumento(String contents, String pdfFilename, Curso curso) throws Exception
 	{
-		String[] lines = contents.split("\\n");
+		String[] lines = contents.split("\n");
 
 		int anoCorrente = 0;
 		int periodoCorrente = 0;

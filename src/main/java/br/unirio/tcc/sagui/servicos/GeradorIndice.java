@@ -15,7 +15,10 @@ public class GeradorIndice
 {
 	public void executa(Curso curso, String reportDirectory) throws Exception
 	{
-		for (int i = 2010; i <= 2019; i++)
+		int primeiroAno = curso.getPrimeiroAnoIngresso();
+		int ultimoAno = curso.getUltimoAnoIngresso();
+		
+		for (int i = primeiroAno; i <= ultimoAno; i++)
 		{
 			geraIndice(i, 1, curso, reportDirectory);
 			geraIndice(i, 2, curso, reportDirectory);

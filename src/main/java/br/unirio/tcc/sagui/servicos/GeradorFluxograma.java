@@ -1,6 +1,7 @@
 package br.unirio.tcc.sagui.servicos;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -66,11 +67,21 @@ public class GeradorFluxograma
 		this.numeroDisciplinasEletivasAprovadas = aluno.contaDisciplinasEletivasAprovadas();
 		this.numeroDisciplinasEletivasMatriculadas = aluno.contaDisciplinasEletivasMatriculado();
 
-		File fXmlFile = new File(svgPath);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
-		Document doc = dBuilder.parse(fXmlFile);
+		Document doc;
+		
+		try
+		{
+			File fXmlFile = new File(svgPath);
+			doc = dBuilder.parse(fXmlFile);
+		}
+		catch(Exception e)
+		{
+			InputStream in = getClass().getResourceAsStream("/resources/grade_curricular.svg"); 
+			doc = dBuilder.parse(in);
+		}
+		
 		doc.getDocumentElement().normalize();
 		pintaDisciplinas(aluno, doc);
 

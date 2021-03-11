@@ -20,6 +20,41 @@ public class Curso
 		this.alunos = new ArrayList<Aluno>();
 	}
 	
+	public int contaAlunos()
+	{
+		return alunos.size();
+	}
+	
+	public int getPrimeiroAnoIngresso()
+	{
+		int ano = 2100;
+		
+		for (Aluno aluno : alunos)
+		{
+			int anoIngressoAluno = aluno.getAnoIngresso();
+			
+			if (anoIngressoAluno < ano)
+				ano = anoIngressoAluno;
+		}
+		
+		return ano;
+	}
+	
+	public int getUltimoAnoIngresso()
+	{
+		int ano = 2000;
+		
+		for (Aluno aluno : alunos)
+		{
+			int anoIngressoAluno = aluno.getAnoIngresso();
+			
+			if (anoIngressoAluno > ano)
+				ano = anoIngressoAluno;
+		}
+		
+		return ano;
+	}
+	
 	public void adicionaDisciplina(String codigo, String nome, TipoDisciplina tipo, int versaoPPC)
 	{
 		disciplinas.add(new Disciplina(codigo, nome, tipo, versaoPPC));

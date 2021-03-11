@@ -1,19 +1,26 @@
 # SAGUI: versão desktop
 
+
 ## Como funciona?
 
-O SAGUI carrega um conjunto de arquivos PDF com históricos do BSI, geralmente um arquivo
-por semestre, e salva relatórios HTML indicando as disciplinas concluídas pelos alunos e
+O SAGUI carrega um conjunto de arquivos PDF com históricos do BSI (geralmente um arquivo
+por semestre) e salva relatórios HTML indicando as disciplinas concluídas pelos alunos e
 aquelas que estão faltando. Os relatórios são separados por semestre e ano de ingresso.
 O sistema também "quebra" o PDF, separando os arquivos de cada aluno.
 
+
+## Como baixar?
+
+
+
 ## Como usar?
 
-Primeiro, salve os PDF no diretório ~/Desktop/source-pdf.
+* Selecione um diretório qualquer, digamos ```\base```. 
 
-Em seguida, crie o diretório ~/Desktop/source-text. Os PDF serão convertidos em texto e
-salvos neste diretório.
+* Salve os PDF no subdiretório "source-pdf", digamos ```\base\source-pdf```. 
 
-Em seguida, rode o programa para gerar os arquivos texto. Por conta da forma como os PDF foram gerados, o sistema gera arquivos texto que precisam ser corrigidos manualmente. Com o tempo, poderemos melhorar o programa para resolver os problemas de forma automática, mas hoje, as disciplinas de "PRÁTICAS DE TEXTO NA ESFERA ACADÊMICA" e "???" precisam ser corrigidas manualmente nos arquivos texto.
+* Execute o programa usando o comando ```java -jar sagui.jar \base```, onde o último item é o diretório escolhido.
 
-Por fim, rode o programa novamente para gerar os relatórios e confira alguns exemplos.
+* Pronto! Os relatórios devem estar salvos dentro do subdiretório "reports" do diretório escolhido.
+
+ 
