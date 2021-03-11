@@ -11,6 +11,7 @@ O sistema também "quebra" o PDF, separando os arquivos de cada aluno.
 
 ## Como baixar?
 
+Você pode baixar o arquivo JAR executável executável do SAGUI [aqui](https://github.com/unirio/sagui-desktop/blob/master/deployed/sagui.jar?raw=true).
 
 
 ## Como usar?
