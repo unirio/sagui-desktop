@@ -81,9 +81,17 @@ public class GerenciadorDocumento
 				String contents = capturaTextoDocumento(pdfFilename);
 				contents = contents.replace("TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA \nACADÊMICA\n", "TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA ACADÊMICA ");
 				contents = contents.replace("TEORIAS E PR`TICAS DISCURSIVAS NA ESFERA\nACADÊMICA\n", "TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA ACADÊMICA ");
+				contents = contents.replace("TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA\nACADÊMICA\n", "TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA ACADÊMICA ");
+				contents = contents.replace("TEORIASEPRÁTICASDISCURSIVASNAESFERA\nACADÊMICA\n", "TEORIAS E PRÁTICAS DISCURSIVAS NA ESFERA ACADÊMICA ");
+
 				contents = contents.replace("FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO \nE RACIOCÍNIO\n", "FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO E RACIOCÍNIO "); 
 				contents = contents.replace("FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO\nE RACIOCÍNIO\n", "FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO E RACIOCÍNIO ");
-				contents = contents.replace("ATC2020 Estudo Remoto - Calendario Emergencial 2020 100,00 APV - Aprovado sem nota 15\n", "");
+				contents = contents.replace("FUNDAMENTO S DEREPRESENTAÇÃO DE CONHECIMENTO\nE RACIOCÍNIO\n", "FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO E RACIOCÍNIO ");
+				contents = contents.replace("FUNDAMENTOSDEREPRESENTAÇÃODECONHECIMENTO\nERACIOCÍNIO\n", "FUNDAMENTOS DE REPRESENTAÇÃO DE CONHECIMENTO E RACIOCÍNIO ");
+
+				contents = contents.replaceAll("ATC2020 .*?\n", "");
+				contents = contents.replaceAll("ATC0070 .*?\n", "");
+				contents = contents.replaceAll("TUT0005 .*?\n", "");
 
 				PrintWriter writer = new PrintWriter(textFilename, "UTF-8");
 				writer.print(contents);
@@ -161,7 +169,7 @@ public class GerenciadorDocumento
 					paginaCorrente = Integer.parseInt(line.substring(15));
 				}
 				
-				if (verificaLinhaMatricula(line))
+				else if (verificaLinhaMatricula(line))
 				{
 					if (alunoCorrente != null)
 						alunoCorrente.setUltimaPagina(paginaCorrente-1);
@@ -171,7 +179,7 @@ public class GerenciadorDocumento
 	
 				else if (verificaLinhaNome(line))
 				{
-					alunoCorrente.setNome(line.substring(0, line.length()-12));
+					alunoCorrente.setNome(line.substring(0, line.length()-12).trim());
 				}
 	
 				else if (verificaLinhaDataHistorico(line))

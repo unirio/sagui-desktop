@@ -13,5 +13,7 @@
 # *.tar.gz
 # *.rar
 
-# Biuld dir
+# Build dir
 /target/
+/base/
+/.vscode/

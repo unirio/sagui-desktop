@@ -8,6 +8,9 @@ por semestre) e salva relatórios HTML indicando as disciplinas concluídas pelo
 aquelas que estão faltando. Os relatórios são separados por semestre e ano de ingresso.
 O sistema também "quebra" o PDF, separando os arquivos de cada aluno.
 
+Importante: os arquivos utilizados pelo Sagui são históricos completos, não históricos
+simplificados, que também podem ser gerados pelo sistema acadêmico.
+
 
 ## Como baixar?
 
@@ -24,4 +27,8 @@ Você pode baixar o arquivo JAR executável executável do SAGUI [aqui](https://
 
 * Pronto! Os relatórios devem estar salvos dentro do subdiretório "reports" do diretório escolhido.
 
- 
+Matrícula:
+Aluno:
+(\d{11})
+
+Aluno:\n => Aluno: 

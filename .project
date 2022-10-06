@@ -2,10 +2,8 @@
 <projectDescription>
 	<name>sagui</name>
 	<comment></comment>
-
 	<projects>
 	</projects>
-
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
@@ -18,20 +16,18 @@
 			</arguments>
 		</buildCommand>
 	</buildSpec>
-
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 	</natures>
-
 	<filteredResources>
 		<filter>
-			<id>1602781679797</id>
+			<id>1665081683930</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.core.resources.regexFilterMatcher</id>
-				<arguments>node_modules|.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
+				<arguments>node_modules|\.git|__CREATED_BY_JAVA_LANGUAGE_SERVER__</arguments>
 			</matcher>
 		</filter>
 	</filteredResources>
